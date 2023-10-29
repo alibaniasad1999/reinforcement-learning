@@ -1,0 +1,10 @@
+\section{Question 2}
+\begin{align*}  
+v_{\pi}(s) &= \sum_{a} \pi(a|s) \sum_{s',r} p(s',r|s,a) [r + \gamma v_{\pi}(s')] \\
+& = \dfrac{1}{4} \sum_{s',r} p(s',r|s,a) [r + \gamma v_{\pi}(s')] \\
+& = \dfrac{1}{4} (0 + \gamma v_{\pi}(A)) + \dfrac{1}{4} (0 + \gamma v_{\pi}(B)) + \dfrac{1}{4} (0 + \gamma v_{\pi}(C)) + \dfrac{1}{4} (0 + \gamma v_{\pi}(D)) \\
+& = \dfrac{1}{4} \gamma (v_{\pi}(A) + v_{\pi}(B) + v_{\pi}(C) + v_{\pi}(D)) \\
+& = \dfrac{1}{4} \gamma \sum_{s'} v_{\pi}(s') \\
+& = \dfrac{1}{4} \gamma (0.7 + 2.3 + 0.4 - 0.4)\\
+& = \dfrac{1}{4} \gamma (3) = 0.7
+\end{align*}
