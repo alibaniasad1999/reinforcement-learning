@@ -1,0 +1,16 @@
+\newpage
+\section{Question 4}
+% Give the Bellman equation for q⇤ for the recycling robot
+% belman equation
+\begin{equation}
+  \label{eq:q4}
+  q^*(s,a) = \sum_{s'} p(s'|s,a) \left[ r(s,a,s') + \gamma \max_{a'} q^*(s',a') \right]
+\end{equation}
+\begin{align*}
+    q^*(\text{high}, \text{search}) &= \alpha(r_{\text{search}} + \gamma \max_{a'} q^*(\text{high},a')) + (1-\alpha)(r_{\text{search}} + \gamma \max_{a'} q^*(\text{low},a')) \\
+    q^*(\text{high}, \text{wait}) &= (r_{\text{wait}} + \gamma \max_{a'} q^*(\text{high},a'))  \\
+    q^*(\text{low}, \text{search}) &= \beta(r_{\text{search}} + \gamma \max_{a'} q^*(\text{high},a')) + (1-\beta)(r_{\text{search}} + \gamma \max_{a'} q^*(\text{low},a')) \\
+    q^*(\text{low}, \text{wait}) &= (r_{\text{wait}} + \gamma \max_{a'} q^*(\text{low},a'))  \\
+    % recharge
+    q^*(\text{low}, \text{recharge}) &= (r_{\text{recharge}} + \gamma \max_{a'} q^*(\text{high},a'))  
+\end{align*}

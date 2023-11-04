@@ -1,0 +1,89 @@
+\section{Question 3}
+
+
+
+  Consider the continuing Markov Decision Process (MDP) shown to the right. The only decision to be made is in the top state, where two actions are available: left and right. The numbers indicate the rewards received deterministically after each action. There are exactly two deterministic policies, $\pi_{\text{left}}$ and $\pi_{\text{right}}$. What policy is optimal if $\gamma = 0$? If $\gamma = 0.9$? If $\gamma = 0.5$?
+
+\begin{align*}
+\text{State 1:} \quad & r = 0, \quad l = 1 \\
+\text{State 2:} \quad & r = 2, \quad l = 0
+\end{align*}
+
+The Bellman equation for the optimal action-value function $Q^*(s, a)$ in this case can be expressed as follows:
+
+\[
+Q^*(s, a) = R(s, a) + \gamma \cdot \sum_{s'} P(s' | s, a) \cdot \max_{a'} Q^*(s', a')
+\]
+
+where $R(s, a)$ represents the immediate reward for taking action $a$ in state $s$, $P(s' | s, a) = 1$ since the transition probabilities are deterministic, and $\gamma$ is the discount factor.
+
+To find the optimal policy for different values of $\gamma$, we can calculate the optimal action-value functions $Q^*(s, a)$ for each state-action pair and determine the actions that maximize these values under the given discount factor.
+
+
+\begin{itemize}
+    \item $\gamma = 0$
+    \begin{itemize}
+      \item $\pi = \pi_{\text{left}}$
+      \[Q^*(s_1, \text{Left}) = 1 + 0 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 + \cdots = 1\]
+      \item $\pi = \pi_{\text{right}}$
+      \[Q^*(s_1, \text{Right}) = 0 + 0 \cdot 2 + 0 \cdot  + 0 \cdot 0 + \cdots = 0\]
+    \end{itemize}
+    \item $\gamma = 0.5$
+    \begin{itemize}
+      \item $\pi = \pi_{\text{left}}$
+      \[Q^*(s_1, \text{Left}) = 1 + 0.5 \cdot 0 + 0.5^2 \cdot 1 + 0.5^3 \cdot 0 + \cdots = \sum_{i=0}^{\infty} 0.5^{2i} = \frac{1}{1 - 0.5^2} = \frac{4}{3}\]
+      \item $\pi = \pi_{\text{right}}$
+      \[Q^*(s_1, \text{Right}) = 0 + 0.5 \cdot 2 + 0.5^2 \cdot 0 + 0.5^3 \cdot 2 + \cdots = \sum_{i=0}^{\infty} 0.5^{2i + 1} = \frac{1}{1 - 0.5^2} \cdot 0.5 \cdot 2= \frac{4}{3}\]
+    \end{itemize}
+    \item $\gamma = 0.9$
+    \begin{itemize}
+      \item $\pi = \pi_{\text{left}}$
+      \[Q^*(s_1, \text{Left}) = 1 + 0.9 \cdot 0 + 0.9^2 \cdot 1 + 0.9^3 \cdot 0 + \cdots = \sum_{i=0}^{\infty} 0.9^{2i} = \frac{1}{1 - 0.9^2} = \frac{100}{19}\]
+      \item $\pi = \pi_{\text{right}}$
+      \[Q^*(s_1, \text{Right}) = 0 + 0.9 \cdot 2 + 0.9^2 \cdot 0 + 0.9^3 \cdot 2 + \cdots = \sum_{i=0}^{\infty} 0.9^{2i + 1} = \frac{1}{1 - 0.9^2} \cdot 0.9 \cdot 2= \frac{100}{19} \cdot 0.9 \cdot 2 = \frac{180}{19}\]
+      \end{itemize}
+\end{itemize}
+
+So, the optimal policy for $\gamma = 0$ is $\pi_{\text{left}}$, the optimal policy for $\gamma = 0.5$ is $\pi_{\text{left}}$ and $\pi_{\text{right}}$, and the optimal policy for $\gamma = 0.9$ is $\pi_{\text{right}}$.
+
+% make tikz picture
+\begin{figure}[H]
+  \centering
+  \caption{Continuing MDP}
+
+\begin{tikzpicture}
+  \centering
+  % Main circle
+  \node [circle, draw, minimum size=1.5cm] (circle1) {};
+  
+  % Circle 2
+  \node [circle, draw, minimum size=1cm, fill=black, below left=1cm and 1cm of circle1] (circle2){};
+  
+  % Circle 3
+  \node [circle, draw, minimum size=1cm, fill=black, below right=1cm and 1cm of circle1] (circle3){};
+
+  % add two more white circles under circle2 and circle3
+  \node [circle, draw, minimum size=1.5cm, below=0.5cm of circle2] (circle4){};
+  \node [circle, draw, minimum size=1.5cm, below=0.5cm of circle3] (circle5){};
+  % add two more black circles under circle4 and circle5
+  \node [circle, draw, minimum size=1cm, fill=black, below=0.5cm of circle4] (circle6){};
+  \node [circle, draw, minimum size=1cm, fill=black, below=0.5cm of circle5] (circle7){};
+
+  
+  % Connect circles
+  \draw (circle1) -- (circle2) node[midway, left] {left};
+  \draw (circle1) -- (circle3) node[midway, right] {right};
+  \draw (circle2) -- (circle4) node[midway, left] {+1};
+  \draw (circle3) -- (circle5) node[midway, right] {0};
+  \draw (circle4) -- (circle6) node[midway, left] {};
+  \draw (circle5) -- (circle7) node[midway, right] {};
+  % connect circle6 and circle7 to circle1 curved line
+  \draw (circle7) node[pos=60,, right] {+2}to [out=-20,in=40] (circle1);
+  \draw (circle6) to [out=-160,in=140] (circle1) node[pos=60, left] {0};
+
+\end{tikzpicture}
+\end{figure}
+
+
+
+  

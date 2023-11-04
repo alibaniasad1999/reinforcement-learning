@@ -12,26 +12,21 @@ $$
 $$
 We can work backward to compute the returns $G_t$:
 \begin{align*}
-    G_5 &= 0 \\
-    G_4 &= R_4 + \gamma G_5 = 3 + 0.5 \cdot 0 = 3 \\
-    G_3 &= R_3 + \gamma G_4 = 6 + 0.5 \cdot 3 = 7.5 \\
-    G_2 &= R_2 + \gamma G_3 = 2 + 0.5 \cdot 7.5 = 6.25 \\
-    G_1 &= R_1 + \gamma G_2 = 1 + 0.5 \cdot 6.25 = 4.125 \\
-    G_0 &= R_0 + \gamma G_1 = 0 + 0.5 \cdot 4.125 = 2.0625
+    G_5 &= 0\\
+    G_4 &= R_5 + \gamma G_5 = 2\\
+    G_3 &= R_4 + \gamma G_4 = 3 + 0.5 \times 2 = 4\\
+    G_2 &= R_3 + \gamma G_3 = 6 + 0.5 \times 4 = 8\\
+    G_1 &= R_2 + \gamma G_2 = 2 + 0.5 \times 8 = 6
+    G_0 &= R_1 + \gamma G_1 = -1 + 0.5 \times 6 = 2
 \end{align*}
 Therefore, the returns are:
-$$
+\[
 \begin{array}{c|c|c}
     t & R_t & G_t \\ \hline
-    1 & 1 & 4.125 \\
-    2 & 2 & 6.25 \\
-    3 & 6 & 7.5 \\
-    4 & 3 & 3 \\
-    5 & 2 & 0
-\end{array}
-$$
-    
-
-
-    
-
+    1 & 1 & 2 \\
+    2 & 2 & 6 \\
+    3 & 6 & 8 \\
+    4 & 3 & 4 \\
+    5 & 2 & 0 \\
+    \end{array}
+\]
