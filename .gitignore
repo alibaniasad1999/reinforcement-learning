@@ -1,5 +1,6 @@
 *.json
 .vscode/**
+*.png
 .env/
 .DS_Store
 .slprj

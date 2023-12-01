@@ -1,238 +1,165 @@
 import numpy as np
-import matplotlib.pyplot as plt
-
-# solving car racing problem using monte carlo method reinforcement learning
-# the car racing problem is a 5x5 grid, with the car starting at the bottom
-# left corner, and the goal at the top right corner. The car can move up, down, left, or right
 
 
-# initialize the grid
-grid = np.zeros((32, 32))
-# set the goal
-# grid[4,4] = 1
-# set the starting position down in random row
-# grid[4,np.random.randint(0,5)] = 2
-# set walls
-grid[31, :] = [-1] * 16 + [0] * (16 - 1) + [1] * 1
-grid[30, :] = [-1] * 13 + [0] * (19 - 1) + [1] * 1
-grid[29, :] = [-1] * 12 + [0] * (20 - 1) + [1] * 1
-grid[28, :] = [-1] * 11 + [0] * (21 - 1) + [1] * 1
-grid[27, :] = [-1] * 11 + [0] * (21 - 1) + [1] * 1
-grid[26, :] = [-1] * 11 + [0] * (21 - 1) + [1] * 1
-grid[25, :] = [-1] * 11 + [0] * (21 - 1) + [1] * 1
-grid[24, :] = [-1] * 12 + [0] * (20 - 1) + [1] * 1
-grid[23, :] = [-1] * 13 + [0] * (19 - 1) + [1] * 1
-grid[22, :] = [-1] * 14 + [0] * (18 - 2) + [-1] * 2
-grid[21, :] = [-1] * 14 + [0] * (18 - 5) + [-1] * 5
-grid[20, :] = [-1] * 14 + [0] * (18 - 6) + [-1] * 6
-grid[19, :] = [-1] * 14 + [0] * (18 - 8) + [-1] * 8
-grid[18, :] = [-1] * 14 + [0] * (18 - 9) + [-1] * 9
-grid[17, :] = [-1] * 13 + [0] * (19 - 9) + [-1] * 9
-grid[16, :] = [-1] * 12 + [0] * (20 - 9) + [-1] * 9
-grid[15, :] = [-1] * 11 + [0] * (21 - 9) + [-1] * 9
-grid[14, :] = [-1] * 10 + [0] * (22 - 9) + [-1] * 9
-grid[13, :] = [-1] * 9 + [0] * (23 - 9) + [-1] * 9
-grid[12, :] = [-1] * 8 + [0] * (24 - 9) + [-1] * 9
-grid[11, :] = [-1] * 7 + [0] * (25 - 9) + [-1] * 9
-grid[10, :] = [-1] * 6 + [0] * (26 - 9) + [-1] * 9
-grid[9, :] = [-1] * 5 + [0] * (27 - 9) + [-1] * 9
-grid[8, :] = [-1] * 4 + [0] * (28 - 9) + [-1] * 9
-grid[7, :] = [-1] * 3 + [0] * (29 - 9) + [-1] * 9
-grid[6, :] = [-1] * 2 + [0] * (30 - 9) + [-1] * 9
-grid[5, :] = [-1] * 1 + [0] * (31 - 9) + [-1] * 9
-grid[4, :] = [0] * (32 - 9) + [-1] * 9
-grid[3, :] = [0] * (32 - 9) + [-1] * 9
-grid[2, :] = [0] * (32 - 9) + [-1] * 9
-grid[1, :] = [0] * (32 - 9) + [-1] * 9
-grid[0, :] = [0] * (32 - 9) + [-1] * 9
-
-# plot the grid revers y axis
-# plt.imshow(grid, cmap='gray')
-# plt.gca().invert_yaxis()
-# plt.show()
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-class Race:
-    def __init__(self, grid):
-        self.reward = None
-        self.grid = grid
-        self.step_num = 0
-        self.state = np.array([0, np.random.randint(0, 23), 0, 0])  # x y dx dy
-        self.returns = {(i, j, k, l, m, n): [] for i in range(len(grid)) for j in range(len(grid)) for k in range(-5, 6)
-                        for l in range(-5, 6) for m in range(-1, 2) for n in range(-1, 2)}
-        self.Q = {(i, j, k, l, m, n): 0 for i in range(len(grid)) for j in range(len(grid)) for k in range(-5, 6) for l
-                  in range(-5, 6) for m in range(-1, 2) for n in range(-1, 2)}
-        # random policy
-        self.policy = {(i, j, k, l): np.random.randint(-1, 2, size=2) for i in range(len(grid)) for j in
-                       range(len(grid)) for k in range(-5, 6) for l in range(-5, 6)}
-
-        self.epsilon = 0.5
-        self.lambda_ = 0.99
-        self.alpha = 0.1
-        self.gamma = 0.9
-        self.is_done = False
-        self.visited_states = []
-
-    def get_action(self):
-        # greedy policy
-        if np.random.uniform(0, 1) > self.epsilon:
-            return self.policy[self.state[0], self.state[1], self.state[2], self.state[3]]
-        else:
-            return np.random.randint(-1, 2, size=2)
+class Race():
+    def __init__(self, width, height, start, goal, obstacles):
+        self.width = width
+        self.height = height
+        self.start = start
+        self.goal = goal
+        self.obstacles = obstacles
 
     def reset(self):
-        self.state = np.array([0, np.random.randint(0, 23), 0, 0])  # x y dx dy
-        self.is_done = False
-        self.returns = {(i, j, k, l, m, n): [] for i in range(len(grid)) for j in range(len(grid)) for k in range(-5, 6)
-                        for l in range(-5, 6) for m in range(-1, 2) for n in range(-1, 2)}
-        self.epsilon *= self.lambda_
-        self.visited_states = []
+        self.state = self.start
 
-    def step(self, action):
-        # move the car
-        self.state[0] += self.state[2]  # x + dx
-        self.state[1] += self.state[3]  # y + dy
-        self.state[2] += action[0]
-        self.state[3] += action[1]
-        # check velocity
-        if self.state[2] > 5:
-            self.state[2] = 5
-        elif self.state[2] < -5:
-            self.state[2] = -5
-        if self.state[3] > 5:
-            self.state[3] = 5
-        elif self.state[3] < -5:
-            self.state[3] = -5
-        elif self.state[2] <= 0:
-            self.state[2] = 1
-        # check if the car is out of bounds
-        if self.state[0] < 0:
-            self.state[0] = 0
-            self.state[2] = 0
-        elif self.state[0] > len(self.grid) - 1:
-            self.state[0] = len(self.grid) - 1
-            self.state[2] = 0
-        if self.state[1] < 0:
-            self.state[1] = 0
-            self.state[3] = 0
-        elif self.state[1] > len(self.grid) - 1:
-            self.state[1] = len(self.grid) - 1
-            self.state[3] = 0
-        # check if the car hit a wall
-        if self.grid[self.state[0], self.state[1]] == -1:
-            self.is_done = True
-            self.reward = -5
-        # check if the car hit the goal
-        elif self.grid[self.state[0], self.state[1]] == 1:
-            self.is_done = True
-            self.reward = 5
+    def move(self, action):
+        acceleration = action.split("_")
+        if acceleration[0] == "up" and self.state[1] < self.height - 1 and (
+        self.state[0], self.state[1] + 1) not in self.obstacles:
+            self.state = (self.state[0], self.state[1] + int(acceleration[1]))
+        elif acceleration[0] == "right" and self.state[0] < self.width - 1 and (
+        self.state[0] + 1, self.state[1]) not in self.obstacles:
+            self.state = (self.state[0] + int(acceleration[1]), self.state[1])
+
+
+class MonteCarloAccelerationRL:
+    def __init__(self, maze, epsilon=0.1, gamma=0.9):
+        self.maze = maze
+        self.epsilon = epsilon
+        self.gamma = gamma
+        self.q_values = {}
+        self.visits = {}
+
+    def get_action(self, state):
+        if np.random.rand() < self.epsilon:
+            # Exploration: Choose a random acceleration action
+            return np.random.choice(["up_-1", "up_0", "up_1", "right_-1", "right_0", "right_1"])
         else:
-            self.is_done = False
-            self.reward = -1
+            # Exploitation: Choose the best acceleration action
+            return max(self.q_values[state], key=self.q_values[state].get)
 
-        # plot grid with car
-        plt.imshow(np.transpose(grid), cmap='gray')
-        plt.gca().invert_yaxis()
-        plt.scatter(self.state[0], self.state[1], color='red')
-        # plt.show()
-        # save fig in folder for gif in location png dir
-        plt.title('step:' + str(self.step_num))
-        plt.savefig('png_fig/' + str(self.step_num).zfill(5) + '.png')
-        # close fig
-        plt.close()
+    def get_q_value(self, state, action):
+        if state not in self.q_values:
+            self.q_values[state] = {
+                "up_-1": 0,
+                "up_0": 0,
+                "up_1": 0,
+                "right_-1": 0,
+                "right_0": 0,
+                "right_1": 0
+            }
+            self.visits[state] = {
+                "up_-1": 0,
+                "up_0": 0,
+                "up_1": 0,
+                "right_-1": 0,
+                "right_0": 0,
+                "right_1": 0
+            }
+        return self.q_values[state][action]
 
-        self.step_num += 1
+    def update_q_values(self, episode):
+        total_reward = 0
+        for state, action, reward in reversed(episode):
+            total_reward = self.gamma * total_reward + reward
+            self.q_values[state][action] += total_reward
+            self.visits[state][action] += 1
 
-        print('State: ', self.state)
-        return self.state, self.reward, self.is_done
+    def run_episode(self):
+        episode = []
+        self.maze.reset()
+        while not self.maze.is_goal_reached():
+            state = self.maze.state
+            action = self.get_action(state)
+            self.maze.move(action)
+            reward = -1  # Constant reward for each step
+            episode.append((state, action, reward))
+        return episode
 
-    def play(self, episodes):
-        for episode in range(episodes):
-            # reset the car
-            self.reset()
-            # play the game
-            while not self.is_done:
-                # get the action
-                action = self.get_action()
-                # step the car
-                # add state to visited states
-                state = self.state
-                _, reward, is_done = self.step(action)
-                # if is_done:
-                #     self.visited_states.append((state[0], state[1], state[2], state[3], action[0], action[1]))
-                # add the reward to the returns
-                self.returns[(state[0], state[1], state[2], state[3], action[0], action[1])].append(reward)
-                self.visited_states.append((state[0], state[1], state[2], state[3], action[0], action[1]))
-            # update the Q values from last episode to first
-            for i in range(len(self.visited_states) - 1, -1, -1):
-                # get the state and action
-                state = self.visited_states[i]
-                # get the reward mean
-                # check nan
-                if len(self.returns[state]) > 0:
-                    reward_ = np.mean(self.returns[state])
+    def train(self, num_episodes):
+        for _ in range(num_episodes):
+            episode = self.run_episode()
+            self.update_q_values(episode)
+
+    def print_policy(self):
+        for y in reversed(range(self.maze.height)):
+            for x in range(self.maze.width):
+                state = (x, y)
+                if state in self.maze.obstacles:
+                    print("X", end="\t")
+                elif state == self.maze.goal:
+                    print("G", end="\t")
                 else:
-                    reward_ = 0
-                    print("Oooops")
-                # update the Q value ---> Q = gamma*G + R_(t+1)
-                if i == int(len(self.visited_states) - 1):
-                    self.Q[state] += reward_
-                else:
-                    self.Q[state] += self.gamma * self.Q[self.visited_states[i + 1]] + reward_
-                print(self.Q[state])
-
-            # update the policy to be greedy to max Q from just visited states
-            for state in self.visited_states:
-                # get the max Q value
-                max_Q = -100000
-                # for every action
-                for i in range(-1, 2):
-                    for j in range(-1, 2):
-                        # check if the action is valid
-                        if state[2] + i > 5 or state[2] + i < -5 or state[3] + j > 5 or state[3] + j < -5:
-                            continue
-                        # check if the action is valid
-                        if state[0] + state[2] > len(self.grid) - 1 or state[0] + state[2] < 0 or state[1] + state[
-                            3] > len(self.grid) - 1 or state[1] + state[3] < 0:
-                            continue
-                        # check if the action is valid
-                        if self.grid[state[0] + state[2], state[1] + state[3]] == -1:
-                            continue
-                        # check if the action is valid
-                        if self.grid[state[0] + state[2], state[1] + state[3]] == 1:
-                            continue
-                        # check if the action is valid
-                        if self.Q[state[0], state[1], state[2] + i, state[3] + j, state[4], state[5]] > max_Q:
-                            max_Q = self.Q[state[0], state[1], state[2] + i, state[3] + j, state[4], state[5]]
-                            self.policy[state[0], state[1], state[2], state[3]] = [i, j]
-
-            # print the policy
-            print('Episode: ', episode)
-            # print('Policy: ', self.policy)
-            # print('Q: ', self.Q)
-            # print('Returns: ', self.returns)
-            # print('----------------------------------------')
-            # reset the returns
-            self.returns = {(i, j, k, l, m, n): [] for i in range(len(grid)) for j in range(len(grid)) for k in
-                            range(-5, 6) for l in range(-5, 6) for m in range(-1, 2) for n in range(-1, 2)}  # %%
+                    best_action = max(self.get_q_value(state), key=self.get_q_value(state).get)
+                    print(best_action.split("_")[0][0].upper() + best_action.split("_")[1], end="\t")
+            print()
 
 
-# play the game
-game = Race(grid)
-game.play(200)
+# Define maze parameters
+width = 32
+height = 32
 
-# make gif of the episodes
-import imageio.v2 as imageio
-import os
+grid = np.zeros((32,32))
 
-images = []
-# ignore hidden files
-for filename in sorted(os.listdir('png_fig/')):
-    if filename.endswith('.png'):
-        images.append(imageio.imread('png_fig/' + filename))
+grid[31, :] = [-1]*16 + [0]*(16-1) + [1]*1
+grid[30, :] = [-1]*13 + [0]*(19-1) + [1]*1
+grid[29, :] = [-1]*12 + [0]*(20-1) + [1]*1
+grid[28, :] = [-1]*11 + [0]*(21-1) + [1]*1
+grid[27, :] = [-1]*11 + [0]*(21-1) + [1]*1
+grid[26, :] = [-1]*11 + [0]*(21-1) + [1]*1
+grid[25, :] = [-1]*11 + [0]*(21-1) + [1]*1
+grid[24, :] = [-1]*12 + [0]*(20-1) + [1]*1
+grid[23, :] = [-1]*13 + [0]*(19-1) + [1]*1
+grid[22, :] = [-1]*14 + [0]*(18-2) + [-1]*2
+grid[21, :] = [-1]*14 + [0]*(18-5) + [-1]*5
+grid[20, :] = [-1]*14 + [0]*(18-6) + [-1]*6
+grid[19, :] = [-1]*14 + [0]*(18-8) + [-1]*8
+grid[18, :] = [-1]*14 + [0]*(18-9) + [-1]*9
+grid[17, :] = [-1]*13 + [0]*(19-9) + [-1]*9
+grid[16, :] = [-1]*12 + [0]*(20-9) + [-1]*9
+grid[15, :] = [-1]*11 + [0]*(21-9) + [-1]*9
+grid[14, :] = [-1]*10 + [0]*(22-9) + [-1]*9
+grid[13, :] = [-1]*9 + [0]*(23-9) + [-1]*9
+grid[12, :] = [-1]*8 + [0]*(24-9) + [-1]*9
+grid[11, :] = [-1]*7 + [0]*(25-9) + [-1]*9
+grid[10, :] = [-1]*6 + [0]*(26-9) + [-1]*9
+grid[9, :] = [-1]*5 + [0]*(27-9) + [-1]*9
+grid[8, :] = [-1]*4 + [0]*(28-9) + [-1]*9
+grid[7, :] = [-1]*3 + [0]*(29-9) + [-1]*9
+grid[6, :] = [-1]*2 + [0]*(30-9) + [-1]*9
+grid[5, :] = [-1]*1 + [0]*(31-9) + [-1]*9
+grid[4, :] = [0]*(32-9) + [-1]*9
+grid[3, :] = [0]*(32-9) + [-1]*9
+grid[2, :] = [0]*(32-9) + [-1]*9
+grid[1, :] = [0]*(32-9) + [-1]*9
+grid[0, :] = [0]*(32-9) + [-1]*9
 
-# Save images as gif with 0.1 frame per second
-imageio.mimsave('movie.gif', images, duration=500)
+obstacles = []
+# Iterate through the grid and identify obstacle positions
+for i in range(len(grid)):
+    for j in range(len(grid[i])):
+        if grid[i, j] == -1:
+            obstacles.append((i, j))
+
+start = (0, 0)
+goal = (4, 4)
+
+# # Create maze and Monte Carlo RL agent with acceleration
+# acceleration_maze = Race(width, height, start, goal, obstacles)
+# mc_acceleration_rl_agent = MonteCarloAccelerationRL(acceleration_maze)
+#
+# # Train the agent
+# num_episodes = 1000
+# mc_acceleration_rl_agent.train(num_episodes)
+#
+# # Print the learned policy
+# print("Learned Policy:")
+# mc_acceleration_rl_agent.print_policy()
+
+# plot the map
+import matplotlib.pyplot as plt
+plt.imshow(grid, cmap='hot', interpolation='nearest')
+plt.show()
+
+
+
