@@ -61,8 +61,8 @@ The On-Policy First-Visit Monte Carlo Control algorithm for an Epsilon-Soft poli
     \item \textbf{Policy Initialization:} Initialize the Epsilon-Soft policy \(\pi\) with an exploration parameter \(\epsilon\). The policy is defined as follows:
     \[
     \pi(a|s) = \begin{cases} 
-      \frac{\epsilon}{\text{{num\_actions}}} + 1 - \epsilon & \text{for the selected action } a \\
-      \frac{\epsilon}{\text{{num\_actions}}} & \text{for all other actions}
+      \dfrac{\epsilon}{\mathcal{A}(s)} + 1 - \epsilon & \text{for the selected action } a \\[2em]
+      \dfrac{\epsilon}{\mathcal{A}(s)} & \text{for all other actions}
    \end{cases}
     \]
     
