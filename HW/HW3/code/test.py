@@ -101,6 +101,7 @@ class Racetrack:
         if self.position[2] == 0 and self.position[3] == 0:
             self.position[2] = -1
 
+
         if self.position[0] < 0:
             self.position[0] = 0
             self.position[2] = 0
@@ -114,13 +115,15 @@ class Racetrack:
             self.position[3] = 0
             self.position[1] = self.width - 1
 
+        if self.position[2] == 0 and self.position[3] == 0 and self.position[0] == 0:
+            self.position[3] = 1
         # check if the car hits the obstacle
         if self.racetrack_map[self.position[0], self.position[1]] == 1:
             self.reset()
             self.reward = -5
         # check if the car reaches the finish line
         elif self.racetrack_map[self.position[0], self.position[1]] == 3:
-            self.reward = 0
+            self.reward = 50
             self.is_done = True
 
         else:
@@ -177,8 +180,12 @@ class Racetrack:
         # save rewards and states
         rewards = []
         states = []
+        num_of_episode = 0
         # run the car until it reaches the finish line
         while not self.is_done:
+            num_of_episode += 1
+            if num_of_episode > 1000:
+                break
             # get the current state
             state = self.get_state()
             # get the current action

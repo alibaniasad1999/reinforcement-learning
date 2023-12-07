@@ -1,0 +1,85 @@
+
+
+\documentclass{article}
+% Template-specific packages
+
+\usepackage{graphicx} % Required for including images
+\usepackage[hidelinks]{hyperref}
+\usepackage{longtable}
+\usepackage{epstopdf}
+\usepackage{fullpage,enumitem,amsmath,amssymb,graphicx}
+\usepackage{tikz}
+\usepackage{pdfpages}
+\usepackage{amsmath, amsthm}
+\usepackage{fancyhdr}
+\usepackage{siunitx}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\pagestyle{fancy}
+\fancyhead[R]{\rightmark}
+\fancyhead[L]{Ali BaniAsad 401209244}
+\setlength{\headheight}{10pt}
+\setlength{\headsep}{0.2in}
+\usepackage{titling}
+\usepackage{float}
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+
+
+%----------------------------------------------------------------------------------------
+\usepackage{graphicx}
+\title{Home Work \#3}
+\author{Ali BaniAsad 401209244}
+
+\begin{document}
+	\maketitle
+\section{Introduction}
+% Your introduction goes here.
+In the realm of automotive engineering and racing strategy, understanding the dynamics of a race car on a given track is crucial for optimizing performance. The race track problem involves modeling the movement of a race car along a predefined track, considering various factors such as speed, acceleration, and track constraints.
+
+Monte Carlo simulations offer a powerful computational approach to analyze and gain insights into complex systems. By employing random sampling and statistical analysis, Monte Carlo methods allow us to simulate and study the behavior of a system over a wide range of potential scenarios. In the context of the race track problem, Monte Carlo simulations provide a versatile tool for assessing race outcomes and lap times under different conditions.
+
+This study aims to utilize Monte Carlo simulations to address the race track problem, considering a 2D plane representation of the track boundaries. The simulated race car will navigate through random paths, and lap times will be evaluated to gain a statistical understanding of potential race outcomes. By doing so, we hope to uncover valuable insights into the influence of various parameters on race performance.
+
+The subsequent sections will delve into the methodology employed, detailing the race track model, the Monte Carlo simulation process, and the specific steps taken to analyze the results. Through this exploration, we aim to contribute to the understanding of race track dynamics and provide a foundation for further research and optimization strategies in the field of motorsports.
+
+
+\section{Methodology}
+
+\subsection{Race Track Model}
+Assume a race track represented as a 2D plane with boundaries. Let the track be defined by a set of points $T = \{(x_i, y_i)\}$ where $i$ is the index of the point.
+
+\subsection{Monte Carlo Simulation}
+To simulate a car race on the track, follow these steps:
+
+\begin{enumerate}
+	\item \textbf{Generate Random Paths:} For each race simulation, generate a random path representing the car's movement on the track. This can be done by randomly selecting points from the track boundaries.
+	
+	\item \textbf{Evaluate Paths:} Evaluate each generated path to determine if the car completes a lap. Check if the path crosses the start/finish line and stays within the track boundaries.
+	
+	\item \textbf{Calculate Lap Time:} If a path completes a lap, calculate the lap time based on the speed profile assumed for the car.
+	
+	\item \textbf{Repeat Simulations:} Repeat the above steps for a large number of simulations to obtain a statistically significant sample.
+	
+	\item \textbf{Analyze Results:} Analyze the lap times and other relevant statistics obtained from the simulations. This may involve calculating the mean, standard deviation, and other measures.
+	
+\end{enumerate}
+
+\section{Results}
+% Present the results of your simulation here.
+
+\section{Discussion}
+% Discuss the implications of your results.
+
+\section{Conclusion}
+% Summarize your findings and suggest future research.
+
+\section{References}
+% Include any references you consulted.
+
+\end{document}
+
