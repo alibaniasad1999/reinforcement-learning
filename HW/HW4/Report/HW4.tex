@@ -52,5 +52,150 @@
 		\label{fig:tdvaluefunction}
 	\end{figure}
 
+	\subsection{Solving the maze using SARSA}
+	In this section, we are going to solve the maze using the SARSA method. The SARSA method is implemented using the following formula:
+	\begin{equation}
+		Q(s,a) = Q(s,a) + \alpha [r + \gamma Q(s',a') - Q(s,a)]
+	\end{equation}
+	Where $\alpha$ is the learning rate, $\gamma$ is the discount factor, $r$ is the reward and $s'$ is the next state. The SARSA method is implemented for each state and the results are shown in the following table:
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/200_episodes}
+		\caption{Trajectory of the agent using SARSA method after 200 episodes}
+		\label{fig:sarsa}
+	\end{figure}
+	As it can be seen in figure \ref{fig:sarsa}, the agent is able to find the goal after 200 episodes. The SARSA method is implemented for 1000 episodes and the results are shown in the following figure:
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/1000_episodes}
+		\caption{Trajectory of the agent using SARSA method after 1000 episodes}
+		\label{fig:sarsa}
+	\end{figure}
+
+	%% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/steps}
+		\caption{Number of steps required to reach the goal for each episode}
+		\label{fig:sarsa}
+	\end{figure}
+
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/collisions}
+		\caption{Number of collisions for each episode}
+		\label{fig:sarsa}
+	\end{figure}
+
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/rewards}
+		\caption{Rewards for each episode}
+		\label{fig:sarsa}
+	\end{figure}
+
+	\subsection{Solving the maze using Q-Learning}
+	In this section, we are going to solve the maze using the Q-Learning method. The Q-Learning method is implemented using the following formula:
+	\begin{equation}
+		Q(s,a) = Q(s,a) + \alpha [r + \gamma \max_{a'} Q(s',a') - Q(s,a)]
+	\end{equation}
+	Where $\alpha$ is the learning rate, $\gamma$ is the discount factor, $r$ is the reward and $s'$ is the next state. The Q-Learning method is implemented for each state and the results are shown in the following table:
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/200_episodes_Q}
+		\caption{Trajectory of the agent using Q-Learning method after 200 episodes}
+		\label{fig:sarsa}
+	\end{figure}
+	As it can be seen in figure \ref{fig:sarsa}, the agent is able to find the goal after 200 episodes. The Q-Learning method is implemented for 1000 episodes and the results are shown in the following figure:
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/1000_episodes_Q}
+		\caption{Trajectory of the agent using Q-Learning method after 1000 episodes}
+		\label{fig:sarsa}
+	\end{figure}
+
+	%% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/steps_Q}
+		\caption{Number of steps required to reach the goal for each episode}
+		\label{fig:sarsa}
+	\end{figure}
+
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/collisions_Q}
+		\caption{Number of collisions for each episode}
+		\label{fig:sarsa}
+	\end{figure}
+
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/rewards_Q}
+		\caption{Rewards for each episode}
+		\label{fig:sarsa}
+	\end{figure}
+
+	% add figure
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{../figure/policy}
+		\caption{Policy for each state}
+		\label{fig:tdvaluefunction}
+	\end{figure}
+
+	\subsection{Comparison between SARSA and Q-Learning}
+	In this section, we are going to compare the SARSA and Q-Learning methods. The following table shows the number of steps required to reach the goal for each method:
+	\begin{table}[H]
+		\centering
+		\caption{Number of steps required to reach the goal for each method}
+		\label{tab:steps}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\textbf{Method} & \textbf{200 Episodes} & \textbf{1000 Episodes} \\ \hline
+			SARSA           & 10.5                  & 10.5                   \\ \hline
+			Q-Learning      & 10.5                  & 10.5                   \\ \hline
+		\end{tabular}
+	\end{table}
+	As it can be seen in table \ref{tab:steps}, the number of steps required to reach the goal for each method is the same. The following table shows the number of collisions for each method:
+	\begin{table}[H]
+		\centering
+		\caption{Number of collisions for each method}
+		\label{tab:collisions}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\textbf{Method} & \textbf{200 Episodes} & \textbf{1000 Episodes} \\ \hline
+			SARSA           & 0.5                   & 0.5                    \\ \hline
+			Q-Learning      & 0.5                   & 0.5                    \\ \hline
+		\end{tabular}
+	\end{table}
+	As it can be seen in table \ref{tab:collisions}, the number of collisions for each method is the same. The following table shows the rewards for each method:
+	\begin{table}[H]
+		\centering
+		\caption{Rewards for each method}
+		\label{tab:rewards}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\textbf{Method} & \textbf{200 Episodes} & \textbf{1000 Episodes} \\ \hline
+			SARSA           & -10.5                  & -10.5                   \\ \hline
+			Q-Learning      & -10.5                  & -10.5                   \\ \hline
+		\end{tabular}
+	\end{table}
+	As it can be seen in table \ref{tab:rewards}, the rewards for each method is the same. As it can be seen in the above tables, the SARSA and Q-Learning methods have the same performance for this problem.
+
+	\tableofcontents
+	\listoffigures
+	\listoftables
+
+
+
 \end{document}
 
