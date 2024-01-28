@@ -11,59 +11,32 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Conference Paper Title*\\
-{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
-should not be used}
+\title{Autonomous closed-loop guidance using reinforcement learning in a low-thrust, multi-body dynamical environment*\\
+{\footnotesize \textsuperscript{*}Reinforcement Learning Course Project Report}
 \thanks{Identify applicable funding agency here. If none, delete this.}
 }
 
-\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+\author{\IEEEauthorblockN{Ali Baniasad}
+\IEEEauthorblockA{\textit{Department of Aerospace Engineering} \\
+\textit{Sharif University of Technology}\\
+Tehran, Iran \\
+ali\_baniasad@ae.sharif.edu}
 \and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+\IEEEauthorblockN{Mehrdad Boroushaki}
+\IEEEauthorblockA{\textit{Department of Energy Engineering} \\
+\textit{Sharif University of Technology}\\
+Tehran, Iran \\
+boroushaki@sharif.edu}
 }
 
 \maketitle
 
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+    Onboard autonomy is an essential component in enabling increasingly complex missions into deep space. In nonlinear dynamical environments, computationally efficient guidance strategies are challenging. Many traditional approaches rely on either simplifying assumptions in the dynamical model or on abundant computational resources. This research effort employs reinforcement learning, a subset of machine learning, to produce a 'lightweight' closed-loop controller that is potentially suitable for onboard low-thrust guidance in challenging dynamical regions of space. The results demonstrate the controller's ability to directly guide a spacecraft despite large initial deviations and to augment a traditional targeting guidance approach. The proposed controller functions without direct knowledge of the dynamical model; direct interaction with the nonlinear equations of motion creates a flexible learning scheme that is not limited to a single force model, mission scenario, or spacecraft. The learning process leverages high-performance computing to train a closed- loop neural network controller. This controller may be employed onboard to autonomously generate low-thrust control profiles in real-time without imposing a heavy workload on a flight computer. Control feasibility is demonstrated through sample transfers between Lyapunov orbits in the Earth-Moon system. The sample low- thrust controller exhibits remarkable robustness to perturbations and generalizes effectively to nearby motion. Finally, the flexibility of the learning framework is demonstrated across a range of mission scenarios and low-thrust engine types.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+    Reinforcement learning-based, computationally efficient closed-loop control enables autonomous low-thrust guidance in complex deep-space missions, showcasing flexibility across diverse scenarios without relying on explicit dynamical models.
 \end{IEEEkeywords}
 
 \section{Introduction}
